@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: jf-openhuninn;
+  src: url('../assets/fonts/jf-openhuninn.ttf');
+}
+
+$color-primary: #FEDCC2;
+$color-on-primary: #FFA73A;
+
+
+body {
+  margin: 0;
+  font-family: jf-openhuninn !important;
+  background-color: $color-primary;
+}
+
+@media (min-width: 1425px) {
+  .container {
+    max-width: 1425px;
+  }
+}
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1920px;
+  }
+}
+
