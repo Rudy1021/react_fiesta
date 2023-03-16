@@ -55,12 +55,13 @@ export default function Login() {
         <Button
           block
           className="bg-white border-0 shadow-md h-12 text-lg text-[#FFA73A]"
+          htmlType="submit"
         >
-          註冊
+          登入
         </Button>
       </Form.Item>
       <Form.Item className="flex justify-center">
-        <a href="/signUp">還沒有會員嗎？點擊這裡註冊！</a>
+        <a href="/signup">還沒有會員嗎？點擊這裡註冊！</a>
       </Form.Item>
     </Form>
   );

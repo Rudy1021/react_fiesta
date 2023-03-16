@@ -1,10 +1,12 @@
 import { Card, Row, Col } from 'antd';
 import background from '@/assets/images/login-bg.png';
 import logo from '@/assets/images/new-Logo.png';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 export default function LoginMain() {
   require('@/styles/Login.scss');
+  const location = useLocation();
+
   return (
     <div className="container mb-7">
       <div className=" flex justify-center">
@@ -18,11 +20,11 @@ export default function LoginMain() {
           <Card
             bordered="false"
             title={
-              window.location.pathname === '/signup'
+              location.pathname === '/signup'
                 ? '註冊會員'
-                : window.location.pathname === '/login'
+                : location.pathname === '/login'
                 ? '會員登入'
-                : window.location.pathname === '/forgetpassword'
+                : location.pathname === '/forgetpassword'
                 ? '忘記密碼'
                 : ''
             }

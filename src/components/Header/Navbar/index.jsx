@@ -14,27 +14,32 @@ export default function Navbar() {
       <Col offset={1} span={1}>
         <img src={logo} alt=""></img>
       </Col>
-      <Col offset={1} span={3}>
+      <Col offset={1} span={4}>
         <Search
           placeholder="搜尋想要的活動名稱"
-          className="rounded"
+          className="rounded w-full"
           onSearch={onSearch}
-          block
         />
       </Col>
-      <Col offset={12} span={1} className="text-center pl-4">
+      <Col offset={8} span={2} className="text-center pl-4">
         <div>
-          <FontAwesomeIcon icon={faHouse} />
-          <span>首頁</span>
+          <span>
+            <FontAwesomeIcon icon={faHouse} />
+            首頁
+          </span>
         </div>
       </Col>
-      <Col span={1} className="text-center ml-3">
-        <FontAwesomeIcon icon={faFire} />
-        <span>熱門活動</span>
+      <Col span={2} className="text-center ml-3">
+        <span>
+          <FontAwesomeIcon icon={faFire} />
+          熱門活動
+        </span>
       </Col>
-      <Col span={1} className="text-center ml-3">
-        <FontAwesomeIcon icon={faLocationDot} />
-        <span>周遭活動</span>
+      <Col span={2} className="text-center ml-3">
+        <span>
+          <FontAwesomeIcon icon={faLocationDot} />
+          周遭活動
+        </span>
       </Col>
       <Col span={1} className="ml-3">
         <a href="/login">

@@ -13,7 +13,9 @@ a {
     color: $color-on-primary;
   }
 }
-
+body {
+  background-color: $color-primary;
+}
 .ant-checkbox .ant-checkbox-inner {
   &:hover {
   border-color: $color-on-primary;

@@ -1,4 +1,5 @@
 import { Button, Checkbox, Form, Input, DatePicker } from 'antd';
+import { Link } from 'react-router-dom';
 const onFinish = (values) => {
   console.log('Success:', values);
 };
@@ -94,7 +95,7 @@ export default function SignUp() {
         </Button>
       </Form.Item>
       <Form.Item className="justify-center flex">
-        <a href="/login">已有帳號？點擊這裡登入！</a>
+        <Link to="/login">已有帳號？點擊這裡登入！</Link>
       </Form.Item>
     </Form>
   );
