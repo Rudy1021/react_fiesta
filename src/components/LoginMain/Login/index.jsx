@@ -1,4 +1,5 @@
 import { Button, Form, Input } from 'antd';
+import { Link } from 'react-router-dom';
 
 const onFinish = (values) => {
   console.log('Success:', values);
@@ -49,7 +50,7 @@ export default function Login() {
         <Input placeholder="請輸入密碼" />
       </Form.Item>
       <Form.Item className="flex justify-end">
-        <a href="/forgetpassword">忘記密碼</a>
+        <Link to="/forgetpassword">忘記密碼</Link>
       </Form.Item>
       <Form.Item>
         <Button
@@ -61,7 +62,7 @@ export default function Login() {
         </Button>
       </Form.Item>
       <Form.Item className="flex justify-center">
-        <a href="/signup">還沒有會員嗎？點擊這裡註冊！</a>
+        <Link to="/signup">還沒有會員嗎？點擊這裡註冊！</Link>
       </Form.Item>
     </Form>
   );

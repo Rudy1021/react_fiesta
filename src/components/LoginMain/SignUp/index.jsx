@@ -1,12 +1,22 @@
 import { Button, Checkbox, Form, Input, DatePicker } from 'antd';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+
 const onFinish = (values) => {
   console.log('Success:', values);
 };
+
 const onFinishFailed = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
+
 export default function SignUp() {
+  const [randomNumber, setRandomNumber] = useState(0);
+
+  const randomNum = (min, max) => {
+    setRandomNumber(Math.floor(Math.random() * (max - min + 1)));
+  };
+
   return (
     <Form
       name="basic"
@@ -83,7 +93,15 @@ export default function SignUp() {
       <Form.Item>
         <Checkbox />
         <span>
-          我同意<a href="#">隱私權與個人資料保護政策</a>
+          我同意
+          <a
+            onClick={() => randomNum(1, 1766)}
+            target="_blank"
+            rel="noreferrer noopener"
+            href={'http://random.cat/view/' + randomNumber}
+          >
+            隱私權與個人資料保護政策
+          </a>
         </span>
       </Form.Item>
       <Form.Item>
