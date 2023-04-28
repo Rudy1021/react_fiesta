@@ -13,7 +13,7 @@ export default function Header() {
           <h1 className="text-2xl">O2O社群網路x活動籌備資訊整合平台</h1>
         </Col>
         <Col span={12}>
-          <img src={headerImage}></img>
+          <img src={headerImage} alt=""></img>
         </Col>
       </Row>
     </div>

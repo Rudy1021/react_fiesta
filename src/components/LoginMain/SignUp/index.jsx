@@ -1,9 +1,29 @@
-import { Button, Checkbox, Form, Input, DatePicker } from 'antd';
+import { Button, Checkbox, Form, Input } from 'antd';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { signUp } from '@/api';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
-const onFinish = (values) => {
+const onFinish = async (values) => {
   console.log('Success:', values);
+  const MySwal = withReactContent(Swal);
+  const res = await signUp(values);
+  if (res.status === 200) {
+    MySwal.fire({
+      title: <strong>恭喜！</strong>,
+      html: <i>註冊成功！</i>,
+      icon: 'success',
+    }).then(() => {
+      window.location.assign('/login');
+    });
+  } else {
+    MySwal.fire({
+      title: <strong>警告</strong>,
+      html: <i>此帳號已有人使用！</i>,
+      icon: 'warning',
+    });
+  }
 };
 
 const onFinishFailed = (errorInfo) => {
@@ -12,7 +32,7 @@ const onFinishFailed = (errorInfo) => {
 
 export default function SignUp() {
   const [randomNumber, setRandomNumber] = useState(0);
-
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const randomNum = (min, max) => {
     setRandomNumber(Math.floor(Math.random() * (max - min + 1)));
   };
@@ -31,7 +51,7 @@ export default function SignUp() {
         maxWidth: 600,
       }}
       initialValues={{
-        remember: true,
+        terms: false,
       }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
@@ -53,61 +73,46 @@ export default function SignUp() {
         label="密碼"
         name="password"
         rules={[{ required: true, message: '請輸入密碼！' }]}
+        visibilityToggle={{
+          visible: passwordVisible,
+          onVisibleChange: setPasswordVisible,
+        }}
       >
-        <Input placeholder="請輸入密碼" />
+        <Input.Password placeholder="請輸入密碼" />
       </Form.Item>
       <Form.Item
-        label="真實姓名"
-        name="name"
-        rules={[{ required: true, message: '請輸入真實姓名！' }]}
+        name="terms"
+        valuePropName="checked"
+        rules={[
+          {
+            validator: (_, value) =>
+              new Promise((resolve, reject) =>
+                !value
+                  ? reject('請同意我們的隱私權與個人保護政策！')
+                  : resolve()
+              ),
+          },
+        ]}
       >
-        <Input placeholder="請輸入真實姓名" />
-      </Form.Item>
-      <Form.Item
-        label="出生日期"
-        name="birth"
-        rules={[{ required: true, message: '請輸入正確日期！' }]}
-      >
-        <DatePicker
-          style={{ width: '100%', height: '2.5rem', fontSize: '1.2rem' }}
-          placeholder="請選擇出生日期"
-        />
-      </Form.Item>
-      <Form.Item
-        label="學校/一般信箱"
-        name="mail"
-        rules={[{ required: true, message: '請輸入信箱！' }]}
-      >
-        <Input placeholder="請輸入信箱" />
-      </Form.Item>
-      <Form.Item
-        label="手機號碼"
-        name="phone"
-        rules={[{ required: true, message: '請輸入手機號碼！' }]}
-      >
-        <Input placeholder="請輸入手機號碼" />
-      </Form.Item>
-      <Form.Item label="所屬學校" name="school">
-        <Input placeholder="學生才需填寫" />
-      </Form.Item>
-      <Form.Item>
-        <Checkbox />
-        <span>
-          我同意
-          <a
-            onClick={() => randomNum(1, 1766)}
-            target="_blank"
-            rel="noreferrer noopener"
-            href={'http://random.cat/view/' + randomNumber}
-          >
-            隱私權與個人資料保護政策
-          </a>
-        </span>
+        <Checkbox>
+          <span>
+            我同意
+            <a
+              onClick={() => randomNum(1, 1766)}
+              target="_blank"
+              rel="noreferrer noopener"
+              href={'http://random.cat/view/' + randomNumber}
+            >
+              隱私權與個人資料保護政策
+            </a>
+          </span>
+        </Checkbox>
       </Form.Item>
       <Form.Item>
         <Button
           block
           className="bg-white border-0 shadow-md h-12 text-lg text-[#FFA73A]"
+          htmlType="submit"
         >
           註冊
         </Button>

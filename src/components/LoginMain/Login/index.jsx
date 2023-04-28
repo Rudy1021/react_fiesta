@@ -1,14 +1,41 @@
 import { Button, Form, Input } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { login } from '@/api';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
-const onFinish = (values) => {
-  console.log('Success:', values);
+const onFinish = async (values) => {
+  const MySwal = withReactContent(Swal);
+  const res = await login(values);
+  if (res.status === 200) {
+    // window.location.assign('/');
+    console.log(res);
+  } else {
+    MySwal.fire({
+      title: <strong>警告</strong>,
+      html: <i>帳號或密碼錯誤</i>,
+      icon: 'warning',
+    });
+  }
 };
 const onFinishFailed = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
 
 export default function Login() {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const shouldRedirect = false;
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (shouldRedirect) {
+      navigate('/');
+    }
+  });
+
   return (
     <Form
       name="basic"
@@ -46,8 +73,12 @@ export default function Login() {
         name="password"
         rules={[{ required: true, message: '請輸入密碼！' }]}
         className="mb-0"
+        visibilityToggle={{
+          visible: passwordVisible,
+          onVisibleChange: setPasswordVisible,
+        }}
       >
-        <Input placeholder="請輸入密碼" />
+        <Input.Password placeholder="請輸入密碼" />
       </Form.Item>
       <Form.Item className="flex justify-end">
         <Link to="/forgetpassword">忘記密碼</Link>
